@@ -17,6 +17,19 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Doctor.Name)
         </dd>
+        <dd>
+            <strong>License Number:</strong> @Model.Doctor.LicenseNumber
+        </dd>
+        <dt class="col-sm-2">Phone Number</dt>
+        <dd class="col-sm-10">
+            <a href="tel:@Model.Doctor.PhoneNumber">@Model.Doctor.PhoneNumber</a>
+        </dd>
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">
+            <a href="mailto:@Model.Doctor.Email">@Model.Doctor.Email</a>
+        </dd>
+        <dt class="col-sm-2">Specialization</dt> 
+        <dd class="col-sm-10">@Model.Doctor.Specialization</dd>
     </dl>
 </div>
 <div>

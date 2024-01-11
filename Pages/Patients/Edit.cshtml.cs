@@ -43,16 +43,32 @@ namespace ProiectMedii.Pages.Patients
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
 
-            _context.Attach(Patient).State = EntityState.Modified;
+
 
             try
             {
-                await _context.SaveChangesAsync();
+                var existingPatient = await _context.Patients.FindAsync(Patient.Id);
+
+                if (existingPatient != null)
+                {
+                    existingPatient.FirstName = Patient.FirstName;
+                    existingPatient.LastName = Patient.LastName;
+                    existingPatient.Email = Patient.Email;
+                    existingPatient.IdCard = Patient.IdCard;
+                    existingPatient.DateOfBirth= Patient.DateOfBirth;
+                    existingPatient.PhoneNumber= Patient.PhoneNumber;
+                    existingPatient.InsuranceProvider= Patient.InsuranceProvider;
+                    existingPatient.Address= Patient.Address;
+                    existingPatient.Gender= Patient.Gender;
+
+                    // Save changes to the database
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -71,7 +87,7 @@ namespace ProiectMedii.Pages.Patients
 
         private bool PatientExists(int id)
         {
-            return _context.Patient.Any(e => e.Id == id);
+            return _context.Patients.Any(e => e.Id == id);
         }
     }
 }

@@ -21,9 +21,20 @@ namespace ProiectMedii.Pages.Patients
 
         public IList<Patient> Patient { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string searchName)
         {
-            Patient = await _context.Patient.ToListAsync();
+            IQueryable<Patient> patientsQuery = _context.Patients;
+
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                // Filter by patient name
+                patientsQuery = patientsQuery.Where(p =>
+                    p.FirstName.Contains(searchName) ||
+                    p.LastName.Contains(searchName));
+            }
+
+            Patient = await patientsQuery.ToListAsync();
+
         }
     }
 }

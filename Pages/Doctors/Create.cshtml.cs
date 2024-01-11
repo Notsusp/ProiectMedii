@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProiectMedii.Data;
@@ -26,19 +29,22 @@ namespace ProiectMedii.Pages.Doctors
 
         [BindProperty]
         public Doctor Doctor { get; set; } = default!;
+        [BindProperty]
+        public string PasswordConfirmation { get; set; }
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            
+            if (Doctor.HashedPassword != PasswordConfirmation)
             {
+                Debug.WriteLine("This is it222222");
+                ModelState.AddModelError("PasswordConfirmation", "The password and confirmation do not match.");
                 return Page();
             }
 
             _context.Doctor.Add(Doctor);
             await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Doctors/Index");
         }
     }
 }

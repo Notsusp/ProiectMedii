@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,12 @@ namespace ProiectMedii.Pages.Patients
     public class CreateModel : PageModel
     {
         private readonly ProiectMedii.Data.ProiectMediiContext _context;
+        [BindProperty]
+        public Patient Patient { get; set; }
+
+        [BindProperty]
+        public string ConfirmPassword { get; set; }
+
 
         public CreateModel(ProiectMedii.Data.ProiectMediiContext context)
         {
@@ -24,21 +31,19 @@ namespace ProiectMedii.Pages.Patients
             return Page();
         }
 
-        [BindProperty]
-        public Patient Patient { get; set; } = default!;
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            
+
+            if (Patient.HashedPassword != ConfirmPassword)
             {
+                ModelState.AddModelError("ConfirmPassword", "Password and confirmation do not match.");
                 return Page();
             }
 
             _context.Patient.Add(Patient);
             await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Patients/Index");
         }
     }
 }

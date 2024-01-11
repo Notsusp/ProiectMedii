@@ -13,6 +13,8 @@ namespace ProiectMedii.Data
             : base(options)
         {
         }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Patient> Doctors { get; set; }
 
         public DbSet<ProiectMedii.Models.Appointment> Appointment { get; set; } = default!;
         public DbSet<ProiectMedii.Models.Patient> Patient { get; set; } = default!;
@@ -20,6 +22,10 @@ namespace ProiectMedii.Data
         public DbSet<ProiectMedii.Models.PatientFile> PatientFile { get; set; } = default!;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Patient>()
+            .Property(p => p.DateOfBirth)
+            .HasColumnType("datetime"); // Adjust the data type based on your database
+
             // Configure many-to-many relationship between Doctor and Patient through Appointment
             modelBuilder.Entity<Appointment>()
                 .HasKey(a => new { a.DoctorId, a.PatientId });

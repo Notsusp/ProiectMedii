@@ -18,5 +18,21 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    padding-top: 56px; 
+}
+#hero-panel {
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.carousel-inner {
+    height: 100%;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 10px 0;
 }

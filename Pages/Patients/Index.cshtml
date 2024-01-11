@@ -7,30 +7,47 @@
 
 <h1>Index</h1>
 
+<form method="get">
+    <div class="form-group">
+        <label for="searchName">Search by Name:</label>
+        <input type="text" id="searchName" name="searchName" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
 <p>
     <a asp-page="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Patient[0].Name)
-            </th>
-            <th></th>
+            <th>Patient ID</th>
+            <th>Name</th>
+            <th>Date of Birth</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Insurance Provider</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Patient) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var patient in Model.Patient)
+        {
+            <tr>
+                <td>@patient.Id</td>
+                <td>@($"{patient.FirstName} {patient.LastName}")</td>
+                <td>@patient.DateOfBirth</td>
+                <td>@patient.Gender</td>
+                <td>@patient.Email</td>
+                <td>@patient.PhoneNumber</td>
+                <td>@patient.InsuranceProvider</td>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@patient.Id">Details</a> |
+                    <a asp-page="./Edit" asp-route-id="@patient.Id">Edit</a> |
+                    <a asp-page="./Delete" asp-route-id="@patient.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

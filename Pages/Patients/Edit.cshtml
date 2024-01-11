@@ -7,24 +7,71 @@
 
 <h1>Edit</h1>
 
-<h4>Patient</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Patient.Id" />
-            <div class="form-group">
-                <label asp-for="Patient.Name" class="control-label"></label>
-                <input asp-for="Patient.Name" class="form-control" />
-                <span asp-validation-for="Patient.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<h2>Edit Patient</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Patient.Id" />
+
+    <div class="form-group">
+        <label asp-for="Patient.FirstName"></label>
+        <input asp-for="Patient.FirstName" class="form-control" />
+        <span asp-validation-for="Patient.FirstName" class="text-danger"></span>
     </div>
-</div>
+
+    <div class="form-group">
+        <label asp-for="Patient.LastName"></label>
+        <input asp-for="Patient.LastName" class="form-control" />
+        <span asp-validation-for="Patient.LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Patient.IdCard"></label>
+        <input asp-for="Patient.IdCard" class="form-control" />
+        <span asp-validation-for="Patient.IdCard" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Patient.Gender"></label>
+        <select asp-for="Patient.Gender" class="form-control">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <span asp-validation-for="Patient.Gender" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Patient.Address"></label>
+        <input asp-for="Patient.Address" class="form-control" />
+        <span asp-validation-for="Patient.Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Patient.DateOfBirth"></label>
+        <input asp-for="Patient.DateOfBirth" type="date" class="form-control" />
+        <span asp-validation-for="Patient.DateOfBirth" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Patient.Email"></label>
+        <input asp-for="Patient.Email" class="form-control" />
+        <span asp-validation-for="Patient.Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Patient.PhoneNumber"></label>
+        <input asp-for="Patient.PhoneNumber" class="form-control" />
+        <span asp-validation-for="Patient.PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Patient.InsuranceProvider"></label>
+        <input asp-for="Patient.InsuranceProvider" class="form-control" />
+        <span asp-validation-for="Patient.InsuranceProvider" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-page="./Details" asp-route-id="@Model.Patient.Id" class="btn btn-secondary">Cancel</a>
+</form>
 
 <div>
     <a asp-page="./Index">Back to List</a>
